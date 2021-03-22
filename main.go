@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"database/sql"
 	"log"
 	"net/http"
@@ -18,9 +19,9 @@ type Employee struct {
 // Opens connection with MySQL driver
 func dbConn() (db *sql.DB) {
 	dbDriver := "mysql"
-	dbUser := "root"
-	dbPass := "password"
-	dbName := "goblog"
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
 		panic(err.Error())
